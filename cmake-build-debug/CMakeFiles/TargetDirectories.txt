@@ -1,0 +1,3 @@
+/home/faarie/CLionProjects/POSIX/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/faarie/CLionProjects/POSIX/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/faarie/CLionProjects/POSIX/cmake-build-debug/CMakeFiles/POSIX.dir
