@@ -14,11 +14,11 @@ int main(int argc, char **argv) {
     float quot = (float) a / (float) b; //Casting to a float to take care of the decimals.
     int remain = a % b;
 
-    printf("%i + %i = %i\n", a, b, sum);
-    printf("%i - %i = %i\n", a, b, diff);
-    printf("%i x %i = %i\n", a, b, prod);
-    printf("%i / %i = %.2f\n", a, b, quot);
-    printf("%i %% %i = %i\n", a, b, remain);
+    printf("Sum: %i + %i = %i\n", a, b, sum);
+    printf("Difference: %i - %i = %i\n", a, b, diff);
+    printf("Product: %i x %i = %i\n", a, b, prod);
+    printf("Quotient: %i / %i = %.2f\n", a, b, quot);
+    printf("Remainder: %i %% %i = %i\n", a, b, remain);
 
     return 0;
 }

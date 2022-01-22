@@ -64,6 +64,68 @@ build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
 build edit_cache: phony CMakeFiles/edit_cache.util
 
 # =============================================================================
+# Object build statements for EXECUTABLE target Lab15
+
+
+#############################################
+# Order-only phony target for Lab15
+
+build cmake_object_order_depends_target_Lab15: phony || CMakeFiles/Lab15.dir
+
+build CMakeFiles/Lab15.dir/Lab15.c.o: C_COMPILER__Lab15_Debug /home/faarie/CLionProjects/POSIX/Lab15.c || cmake_object_order_depends_target_Lab15
+  DEP_FILE = CMakeFiles/Lab15.dir/Lab15.c.o.d
+  FLAGS = -g -std=gnu99
+  OBJECT_DIR = CMakeFiles/Lab15.dir
+  OBJECT_FILE_DIR = CMakeFiles/Lab15.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target Lab15
+
+
+#############################################
+# Link the executable Lab15
+
+build Lab15: C_EXECUTABLE_LINKER__Lab15_Debug CMakeFiles/Lab15.dir/Lab15.c.o
+  FLAGS = -g
+  OBJECT_DIR = CMakeFiles/Lab15.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = Lab15
+  TARGET_PDB = Lab15.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target Lab14
+
+
+#############################################
+# Order-only phony target for Lab14
+
+build cmake_object_order_depends_target_Lab14: phony || CMakeFiles/Lab14.dir
+
+build CMakeFiles/Lab14.dir/Lab14.c.o: C_COMPILER__Lab14_Debug /home/faarie/CLionProjects/POSIX/Lab14.c || cmake_object_order_depends_target_Lab14
+  DEP_FILE = CMakeFiles/Lab14.dir/Lab14.c.o.d
+  FLAGS = -g -std=gnu99
+  OBJECT_DIR = CMakeFiles/Lab14.dir
+  OBJECT_FILE_DIR = CMakeFiles/Lab14.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target Lab14
+
+
+#############################################
+# Link the executable Lab14
+
+build Lab14: C_EXECUTABLE_LINKER__Lab14_Debug CMakeFiles/Lab14.dir/Lab14.c.o
+  FLAGS = -g
+  OBJECT_DIR = CMakeFiles/Lab14.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = Lab14
+  TARGET_PDB = Lab14.dbg
+
+# =============================================================================
 # Object build statements for EXECUTABLE target POSIX
 
 
@@ -96,6 +158,12 @@ build CMakeFiles/POSIX.dir/Lab14.c.o: C_COMPILER__POSIX_Debug /home/faarie/CLion
   OBJECT_DIR = CMakeFiles/POSIX.dir
   OBJECT_FILE_DIR = CMakeFiles/POSIX.dir
 
+build CMakeFiles/POSIX.dir/Lab15.c.o: C_COMPILER__POSIX_Debug /home/faarie/CLionProjects/POSIX/Lab15.c || cmake_object_order_depends_target_POSIX
+  DEP_FILE = CMakeFiles/POSIX.dir/Lab15.c.o.d
+  FLAGS = -g -std=gnu99
+  OBJECT_DIR = CMakeFiles/POSIX.dir
+  OBJECT_FILE_DIR = CMakeFiles/POSIX.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target POSIX
@@ -104,7 +172,7 @@ build CMakeFiles/POSIX.dir/Lab14.c.o: C_COMPILER__POSIX_Debug /home/faarie/CLion
 #############################################
 # Link the executable POSIX
 
-build POSIX: C_EXECUTABLE_LINKER__POSIX_Debug CMakeFiles/POSIX.dir/Lab11.c.o CMakeFiles/POSIX.dir/Lab12.c.o CMakeFiles/POSIX.dir/Lab13.c.o CMakeFiles/POSIX.dir/Lab14.c.o
+build POSIX: C_EXECUTABLE_LINKER__POSIX_Debug CMakeFiles/POSIX.dir/Lab11.c.o CMakeFiles/POSIX.dir/Lab12.c.o CMakeFiles/POSIX.dir/Lab13.c.o CMakeFiles/POSIX.dir/Lab14.c.o CMakeFiles/POSIX.dir/Lab15.c.o
   FLAGS = -g
   OBJECT_DIR = CMakeFiles/POSIX.dir
   POST_BUILD = :
@@ -216,7 +284,7 @@ build Lab13: C_EXECUTABLE_LINKER__Lab13_Debug CMakeFiles/Lab13.dir/Lab13.c.o
 #############################################
 # Folder: /home/faarie/CLionProjects/POSIX/cmake-build-debug
 
-build all: phony POSIX Lab12 Lab11 Lab13
+build all: phony Lab15 Lab14 POSIX Lab12 Lab11 Lab13
 
 # =============================================================================
 # Built-in targets
