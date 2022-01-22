@@ -52,6 +52,17 @@ build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
 
 build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 
+
+#############################################
+# Utility command for edit_cache
+
+build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /home/faarie/CLionProjects/POSIX/cmake-build-debug && /app/extra/clion/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build edit_cache: phony CMakeFiles/edit_cache.util
+
 # =============================================================================
 # Object build statements for EXECUTABLE target POSIX
 
@@ -157,16 +168,36 @@ build Lab11: C_EXECUTABLE_LINKER__Lab11_Debug CMakeFiles/Lab11.dir/Lab11.c.o
   TARGET_FILE = Lab11
   TARGET_PDB = Lab11.dbg
 
+# =============================================================================
+# Object build statements for EXECUTABLE target Lab13
+
 
 #############################################
-# Utility command for edit_cache
+# Order-only phony target for Lab13
 
-build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cd /home/faarie/CLionProjects/POSIX/cmake-build-debug && /app/extra/clion/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-  DESC = No interactive CMake dialog available...
-  restat = 1
+build cmake_object_order_depends_target_Lab13: phony || CMakeFiles/Lab13.dir
 
-build edit_cache: phony CMakeFiles/edit_cache.util
+build CMakeFiles/Lab13.dir/Lab13.c.o: C_COMPILER__Lab13_Debug /home/faarie/CLionProjects/POSIX/Lab13.c || cmake_object_order_depends_target_Lab13
+  DEP_FILE = CMakeFiles/Lab13.dir/Lab13.c.o.d
+  FLAGS = -g -std=gnu99
+  OBJECT_DIR = CMakeFiles/Lab13.dir
+  OBJECT_FILE_DIR = CMakeFiles/Lab13.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target Lab13
+
+
+#############################################
+# Link the executable Lab13
+
+build Lab13: C_EXECUTABLE_LINKER__Lab13_Debug CMakeFiles/Lab13.dir/Lab13.c.o
+  FLAGS = -g
+  OBJECT_DIR = CMakeFiles/Lab13.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = Lab13
+  TARGET_PDB = Lab13.dbg
 
 # =============================================================================
 # Target aliases.
@@ -179,7 +210,7 @@ build edit_cache: phony CMakeFiles/edit_cache.util
 #############################################
 # Folder: /home/faarie/CLionProjects/POSIX/cmake-build-debug
 
-build all: phony POSIX Lab12 Lab11
+build all: phony POSIX Lab12 Lab11 Lab13
 
 # =============================================================================
 # Built-in targets
