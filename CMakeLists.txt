@@ -3,4 +3,4 @@ project(POSIX C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(POSIX main.c)
+add_executable(POSIX Lab11.c Lab12.c)
