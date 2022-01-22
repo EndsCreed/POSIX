@@ -1,19 +1,32 @@
 //
-// Created by faarie on 1/21/22.
+// Created by Jonathan Mitchell on 1/21/22.
 //
 
 #include <stdio.h>
+#include <ctype.h>
 
-int main() {
-    int i;
+//This is a reusable function I will continue to use.
+void cleanBuffer() { //So this is my solution to scanf leaving invalid inputs in the input buffer.
+    int n;
+    while((n = getchar()) != EOF && n != '\n' ); //Keeps clearing the next char from the buffer as long as there isn't a newline character and isn't the end of the file.
+}
+
+int main(int argc, char **argv) {
     char c;
+    int n;
     float f;
 
-    scanf("Please enter an integer: %i\n", i);
-    scanf("Please enter any character: %c\n", c);
-    scanf("Please enter any decimal number: %f\n", f);
+    printf("Enter a character: "); //Getting a char from input.
+    scanf("%c", &c);
+    cleanBuffer();
+    printf("Enter a number: "); //Getting a integer from input.
+    scanf("%i", &n);
+    cleanBuffer();
+    printf("Enter a real number: "); //Getting a float from input.
+    scanf("%f", &f);
+    cleanBuffer();
 
-    printf("The Integer you entered was: %i\nThe character you entered was: %c\nThe decimal you entered was: %f", i, c, f);
+    printf("Chracter: %c\nNumber: %i\nDecimal: %.2f\n", c, n, f);
 
     return 0;
 }
