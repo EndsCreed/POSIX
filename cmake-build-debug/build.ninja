@@ -73,6 +73,12 @@ build CMakeFiles/POSIX.dir/Lab12.c.o: C_COMPILER__POSIX_Debug /home/faarie/CLion
   OBJECT_DIR = CMakeFiles/POSIX.dir
   OBJECT_FILE_DIR = CMakeFiles/POSIX.dir
 
+build CMakeFiles/POSIX.dir/Lab13.c.o: C_COMPILER__POSIX_Debug /home/faarie/CLionProjects/POSIX/Lab13.c || cmake_object_order_depends_target_POSIX
+  DEP_FILE = CMakeFiles/POSIX.dir/Lab13.c.o.d
+  FLAGS = -g -std=gnu99
+  OBJECT_DIR = CMakeFiles/POSIX.dir
+  OBJECT_FILE_DIR = CMakeFiles/POSIX.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target POSIX
@@ -81,7 +87,7 @@ build CMakeFiles/POSIX.dir/Lab12.c.o: C_COMPILER__POSIX_Debug /home/faarie/CLion
 #############################################
 # Link the executable POSIX
 
-build POSIX: C_EXECUTABLE_LINKER__POSIX_Debug CMakeFiles/POSIX.dir/Lab11.c.o CMakeFiles/POSIX.dir/Lab12.c.o
+build POSIX: C_EXECUTABLE_LINKER__POSIX_Debug CMakeFiles/POSIX.dir/Lab11.c.o CMakeFiles/POSIX.dir/Lab12.c.o CMakeFiles/POSIX.dir/Lab13.c.o
   FLAGS = -g
   OBJECT_DIR = CMakeFiles/POSIX.dir
   POST_BUILD = :
