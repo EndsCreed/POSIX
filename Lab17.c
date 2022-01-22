@@ -23,7 +23,7 @@ int main(int argc, char **argv) {
         i++;
     }
     if (num == sum) //Checking if the number is the sum of it's factors excluding itself. If it is then it is perfect.
-        printf("%i is a perfect number!", num);
+        printf("%i is a perfect number!\n", num);
     else
-        printf("%i is not a perfect number.", num);
+        printf("%i is not a perfect number.\n", num);
 }

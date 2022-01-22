@@ -21,11 +21,11 @@ int main(int argc, char **argv) {
     scanf("%i", &grade); //Now I don't need a string buffer for an int.
     printf("grade = %i", grade);
     if (grade < 0 || grade > 100) {
-        printf("\nThe grade you have entered is invalid. Please re-run the program with a valid grade.");
+        printf("\nThe grade you have entered is invalid. Please re-run the program with a valid grade.\n");
     }
     else {
         for (i = 0; i < 4 && grade >= ltrGrd[i + 1].value; i++); //This for loop is explained at the end of the file.
-        printf("\nGrade is: %s", ltrGrd[i].string); //After the for loop finishes, this prints the string at the current index.
+        printf("\nGrade is: %s\n", ltrGrd[i].string); //After the for loop finishes, this prints the string at the current index.
     }
     return 0;
 }

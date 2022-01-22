@@ -13,7 +13,7 @@ int main(int argc, char **argv) {
         i++;
     }
 
-    printf("Sum of first 15 natural numbers: %i", sum);
+    printf("Sum of first 15 natural numbers: %i\n", sum);
 
     return 0;
 }

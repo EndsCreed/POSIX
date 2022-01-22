@@ -30,7 +30,7 @@ int main(int argc, char **argv) {
                 printf(" + %i", count);
         }
     }
-    printf(" = %i", ans);
+    printf(" = %i\n", ans);
 
     return 0;
 }
