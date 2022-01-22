@@ -1,4 +1,10 @@
-/app/extra/clion/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/app/extra/clion/bin/ninja/linux/ninja -G Ninja /home/faarie/CLionProjects/POSIX
+/app/extra/clion/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/app/extra/clion/bin/ninja/linux/ninja -DCMAKE_C_COMPILER=/usr/bin/gcc -G Ninja /home/faarie/CLionProjects/POSIX
+-- The C compiler identification is GNU 11.2.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/gcc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
 -- Configuring done
 -- Generating done
 -- Build files have been written to: /home/faarie/CLionProjects/POSIX/cmake-build-debug

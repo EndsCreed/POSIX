@@ -64,6 +64,40 @@ build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
 build edit_cache: phony CMakeFiles/edit_cache.util
 
 # =============================================================================
+# Object build statements for EXECUTABLE target Lab17
+
+
+#############################################
+# Order-only phony target for Lab17
+
+build cmake_object_order_depends_target_Lab17: phony || CMakeFiles/Lab17.dir
+
+build CMakeFiles/Lab17.dir/Lab17.c.o: C_COMPILER__Lab17_Debug /home/faarie/CLionProjects/POSIX/Lab17.c || cmake_object_order_depends_target_Lab17
+  DEP_FILE = CMakeFiles/Lab17.dir/Lab17.c.o.d
+  FLAGS = -g -std=gnu99
+  OBJECT_DIR = CMakeFiles/Lab17.dir
+  OBJECT_FILE_DIR = CMakeFiles/Lab17.dir
+  TARGET_COMPILE_PDB = CMakeFiles/Lab17.dir/
+  TARGET_PDB = Lab17.pdb
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target Lab17
+
+
+#############################################
+# Link the executable Lab17
+
+build Lab17: C_EXECUTABLE_LINKER__Lab17_Debug CMakeFiles/Lab17.dir/Lab17.c.o
+  FLAGS = -g
+  OBJECT_DIR = CMakeFiles/Lab17.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_COMPILE_PDB = CMakeFiles/Lab17.dir/
+  TARGET_FILE = Lab17
+  TARGET_PDB = Lab17.pdb
+
+# =============================================================================
 # Object build statements for EXECUTABLE target Lab16
 
 
@@ -77,6 +111,8 @@ build CMakeFiles/Lab16.dir/Lab16.c.o: C_COMPILER__Lab16_Debug /home/faarie/CLion
   FLAGS = -g -std=gnu99
   OBJECT_DIR = CMakeFiles/Lab16.dir
   OBJECT_FILE_DIR = CMakeFiles/Lab16.dir
+  TARGET_COMPILE_PDB = CMakeFiles/Lab16.dir/
+  TARGET_PDB = Lab16.pdb
 
 
 # =============================================================================
@@ -91,8 +127,9 @@ build Lab16: C_EXECUTABLE_LINKER__Lab16_Debug CMakeFiles/Lab16.dir/Lab16.c.o
   OBJECT_DIR = CMakeFiles/Lab16.dir
   POST_BUILD = :
   PRE_LINK = :
+  TARGET_COMPILE_PDB = CMakeFiles/Lab16.dir/
   TARGET_FILE = Lab16
-  TARGET_PDB = Lab16.dbg
+  TARGET_PDB = Lab16.pdb
 
 # =============================================================================
 # Object build statements for EXECUTABLE target Lab15
@@ -108,6 +145,8 @@ build CMakeFiles/Lab15.dir/Lab15.c.o: C_COMPILER__Lab15_Debug /home/faarie/CLion
   FLAGS = -g -std=gnu99
   OBJECT_DIR = CMakeFiles/Lab15.dir
   OBJECT_FILE_DIR = CMakeFiles/Lab15.dir
+  TARGET_COMPILE_PDB = CMakeFiles/Lab15.dir/
+  TARGET_PDB = Lab15.pdb
 
 
 # =============================================================================
@@ -122,8 +161,9 @@ build Lab15: C_EXECUTABLE_LINKER__Lab15_Debug CMakeFiles/Lab15.dir/Lab15.c.o
   OBJECT_DIR = CMakeFiles/Lab15.dir
   POST_BUILD = :
   PRE_LINK = :
+  TARGET_COMPILE_PDB = CMakeFiles/Lab15.dir/
   TARGET_FILE = Lab15
-  TARGET_PDB = Lab15.dbg
+  TARGET_PDB = Lab15.pdb
 
 # =============================================================================
 # Object build statements for EXECUTABLE target Lab14
@@ -139,6 +179,8 @@ build CMakeFiles/Lab14.dir/Lab14.c.o: C_COMPILER__Lab14_Debug /home/faarie/CLion
   FLAGS = -g -std=gnu99
   OBJECT_DIR = CMakeFiles/Lab14.dir
   OBJECT_FILE_DIR = CMakeFiles/Lab14.dir
+  TARGET_COMPILE_PDB = CMakeFiles/Lab14.dir/
+  TARGET_PDB = Lab14.pdb
 
 
 # =============================================================================
@@ -153,8 +195,9 @@ build Lab14: C_EXECUTABLE_LINKER__Lab14_Debug CMakeFiles/Lab14.dir/Lab14.c.o
   OBJECT_DIR = CMakeFiles/Lab14.dir
   POST_BUILD = :
   PRE_LINK = :
+  TARGET_COMPILE_PDB = CMakeFiles/Lab14.dir/
   TARGET_FILE = Lab14
-  TARGET_PDB = Lab14.dbg
+  TARGET_PDB = Lab14.pdb
 
 # =============================================================================
 # Object build statements for EXECUTABLE target POSIX
@@ -170,36 +213,56 @@ build CMakeFiles/POSIX.dir/Lab11.c.o: C_COMPILER__POSIX_Debug /home/faarie/CLion
   FLAGS = -g -std=gnu99
   OBJECT_DIR = CMakeFiles/POSIX.dir
   OBJECT_FILE_DIR = CMakeFiles/POSIX.dir
+  TARGET_COMPILE_PDB = CMakeFiles/POSIX.dir/
+  TARGET_PDB = POSIX.pdb
 
 build CMakeFiles/POSIX.dir/Lab12.c.o: C_COMPILER__POSIX_Debug /home/faarie/CLionProjects/POSIX/Lab12.c || cmake_object_order_depends_target_POSIX
   DEP_FILE = CMakeFiles/POSIX.dir/Lab12.c.o.d
   FLAGS = -g -std=gnu99
   OBJECT_DIR = CMakeFiles/POSIX.dir
   OBJECT_FILE_DIR = CMakeFiles/POSIX.dir
+  TARGET_COMPILE_PDB = CMakeFiles/POSIX.dir/
+  TARGET_PDB = POSIX.pdb
 
 build CMakeFiles/POSIX.dir/Lab13.c.o: C_COMPILER__POSIX_Debug /home/faarie/CLionProjects/POSIX/Lab13.c || cmake_object_order_depends_target_POSIX
   DEP_FILE = CMakeFiles/POSIX.dir/Lab13.c.o.d
   FLAGS = -g -std=gnu99
   OBJECT_DIR = CMakeFiles/POSIX.dir
   OBJECT_FILE_DIR = CMakeFiles/POSIX.dir
+  TARGET_COMPILE_PDB = CMakeFiles/POSIX.dir/
+  TARGET_PDB = POSIX.pdb
 
 build CMakeFiles/POSIX.dir/Lab14.c.o: C_COMPILER__POSIX_Debug /home/faarie/CLionProjects/POSIX/Lab14.c || cmake_object_order_depends_target_POSIX
   DEP_FILE = CMakeFiles/POSIX.dir/Lab14.c.o.d
   FLAGS = -g -std=gnu99
   OBJECT_DIR = CMakeFiles/POSIX.dir
   OBJECT_FILE_DIR = CMakeFiles/POSIX.dir
+  TARGET_COMPILE_PDB = CMakeFiles/POSIX.dir/
+  TARGET_PDB = POSIX.pdb
 
 build CMakeFiles/POSIX.dir/Lab15.c.o: C_COMPILER__POSIX_Debug /home/faarie/CLionProjects/POSIX/Lab15.c || cmake_object_order_depends_target_POSIX
   DEP_FILE = CMakeFiles/POSIX.dir/Lab15.c.o.d
   FLAGS = -g -std=gnu99
   OBJECT_DIR = CMakeFiles/POSIX.dir
   OBJECT_FILE_DIR = CMakeFiles/POSIX.dir
+  TARGET_COMPILE_PDB = CMakeFiles/POSIX.dir/
+  TARGET_PDB = POSIX.pdb
 
 build CMakeFiles/POSIX.dir/Lab16.c.o: C_COMPILER__POSIX_Debug /home/faarie/CLionProjects/POSIX/Lab16.c || cmake_object_order_depends_target_POSIX
   DEP_FILE = CMakeFiles/POSIX.dir/Lab16.c.o.d
   FLAGS = -g -std=gnu99
   OBJECT_DIR = CMakeFiles/POSIX.dir
   OBJECT_FILE_DIR = CMakeFiles/POSIX.dir
+  TARGET_COMPILE_PDB = CMakeFiles/POSIX.dir/
+  TARGET_PDB = POSIX.pdb
+
+build CMakeFiles/POSIX.dir/Lab17.c.o: C_COMPILER__POSIX_Debug /home/faarie/CLionProjects/POSIX/Lab17.c || cmake_object_order_depends_target_POSIX
+  DEP_FILE = CMakeFiles/POSIX.dir/Lab17.c.o.d
+  FLAGS = -g -std=gnu99
+  OBJECT_DIR = CMakeFiles/POSIX.dir
+  OBJECT_FILE_DIR = CMakeFiles/POSIX.dir
+  TARGET_COMPILE_PDB = CMakeFiles/POSIX.dir/
+  TARGET_PDB = POSIX.pdb
 
 
 # =============================================================================
@@ -209,13 +272,14 @@ build CMakeFiles/POSIX.dir/Lab16.c.o: C_COMPILER__POSIX_Debug /home/faarie/CLion
 #############################################
 # Link the executable POSIX
 
-build POSIX: C_EXECUTABLE_LINKER__POSIX_Debug CMakeFiles/POSIX.dir/Lab11.c.o CMakeFiles/POSIX.dir/Lab12.c.o CMakeFiles/POSIX.dir/Lab13.c.o CMakeFiles/POSIX.dir/Lab14.c.o CMakeFiles/POSIX.dir/Lab15.c.o CMakeFiles/POSIX.dir/Lab16.c.o
+build POSIX: C_EXECUTABLE_LINKER__POSIX_Debug CMakeFiles/POSIX.dir/Lab11.c.o CMakeFiles/POSIX.dir/Lab12.c.o CMakeFiles/POSIX.dir/Lab13.c.o CMakeFiles/POSIX.dir/Lab14.c.o CMakeFiles/POSIX.dir/Lab15.c.o CMakeFiles/POSIX.dir/Lab16.c.o CMakeFiles/POSIX.dir/Lab17.c.o
   FLAGS = -g
   OBJECT_DIR = CMakeFiles/POSIX.dir
   POST_BUILD = :
   PRE_LINK = :
+  TARGET_COMPILE_PDB = CMakeFiles/POSIX.dir/
   TARGET_FILE = POSIX
-  TARGET_PDB = POSIX.dbg
+  TARGET_PDB = POSIX.pdb
 
 # =============================================================================
 # Object build statements for EXECUTABLE target Lab12
@@ -231,6 +295,8 @@ build CMakeFiles/Lab12.dir/Lab12.c.o: C_COMPILER__Lab12_Debug /home/faarie/CLion
   FLAGS = -g -std=gnu99
   OBJECT_DIR = CMakeFiles/Lab12.dir
   OBJECT_FILE_DIR = CMakeFiles/Lab12.dir
+  TARGET_COMPILE_PDB = CMakeFiles/Lab12.dir/
+  TARGET_PDB = Lab12.pdb
 
 
 # =============================================================================
@@ -245,8 +311,9 @@ build Lab12: C_EXECUTABLE_LINKER__Lab12_Debug CMakeFiles/Lab12.dir/Lab12.c.o
   OBJECT_DIR = CMakeFiles/Lab12.dir
   POST_BUILD = :
   PRE_LINK = :
+  TARGET_COMPILE_PDB = CMakeFiles/Lab12.dir/
   TARGET_FILE = Lab12
-  TARGET_PDB = Lab12.dbg
+  TARGET_PDB = Lab12.pdb
 
 # =============================================================================
 # Object build statements for EXECUTABLE target Lab11
@@ -262,6 +329,8 @@ build CMakeFiles/Lab11.dir/Lab11.c.o: C_COMPILER__Lab11_Debug /home/faarie/CLion
   FLAGS = -g -std=gnu99
   OBJECT_DIR = CMakeFiles/Lab11.dir
   OBJECT_FILE_DIR = CMakeFiles/Lab11.dir
+  TARGET_COMPILE_PDB = CMakeFiles/Lab11.dir/
+  TARGET_PDB = Lab11.pdb
 
 
 # =============================================================================
@@ -276,8 +345,9 @@ build Lab11: C_EXECUTABLE_LINKER__Lab11_Debug CMakeFiles/Lab11.dir/Lab11.c.o
   OBJECT_DIR = CMakeFiles/Lab11.dir
   POST_BUILD = :
   PRE_LINK = :
+  TARGET_COMPILE_PDB = CMakeFiles/Lab11.dir/
   TARGET_FILE = Lab11
-  TARGET_PDB = Lab11.dbg
+  TARGET_PDB = Lab11.pdb
 
 # =============================================================================
 # Object build statements for EXECUTABLE target Lab13
@@ -293,6 +363,8 @@ build CMakeFiles/Lab13.dir/Lab13.c.o: C_COMPILER__Lab13_Debug /home/faarie/CLion
   FLAGS = -g -std=gnu99
   OBJECT_DIR = CMakeFiles/Lab13.dir
   OBJECT_FILE_DIR = CMakeFiles/Lab13.dir
+  TARGET_COMPILE_PDB = CMakeFiles/Lab13.dir/
+  TARGET_PDB = Lab13.pdb
 
 
 # =============================================================================
@@ -307,8 +379,9 @@ build Lab13: C_EXECUTABLE_LINKER__Lab13_Debug CMakeFiles/Lab13.dir/Lab13.c.o
   OBJECT_DIR = CMakeFiles/Lab13.dir
   POST_BUILD = :
   PRE_LINK = :
+  TARGET_COMPILE_PDB = CMakeFiles/Lab13.dir/
   TARGET_FILE = Lab13
-  TARGET_PDB = Lab13.dbg
+  TARGET_PDB = Lab13.pdb
 
 # =============================================================================
 # Target aliases.
@@ -321,7 +394,7 @@ build Lab13: C_EXECUTABLE_LINKER__Lab13_Debug CMakeFiles/Lab13.dir/Lab13.c.o
 #############################################
 # Folder: /home/faarie/CLionProjects/POSIX/cmake-build-debug
 
-build all: phony Lab16 Lab15 Lab14 POSIX Lab12 Lab11 Lab13
+build all: phony Lab17 Lab16 Lab15 Lab14 POSIX Lab12 Lab11 Lab13
 
 # =============================================================================
 # Built-in targets
@@ -330,14 +403,14 @@ build all: phony Lab16 Lab15 Lab14 POSIX Lab12 Lab11 Lab13
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | ../CMakeLists.txt /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeCInformation.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeCommonLanguageInclude.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeGenericSystem.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeInitializeConfigs.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeLanguageInformation.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeSystemSpecificInformation.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeSystemSpecificInitialize.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/CMakeCommonCompilerMacros.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/GNU-C.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/GNU.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Platform/Linux-GNU-C.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Platform/Linux-GNU.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Platform/Linux.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.21.1/CMakeCCompiler.cmake CMakeFiles/3.21.1/CMakeSystem.cmake
+build build.ninja: RERUN_CMAKE | ../CMakeLists.txt /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeCCompiler.cmake.in /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeCCompilerABI.c /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeCInformation.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeCommonLanguageInclude.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeCompilerIdDetection.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeDetermineCCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeDetermineCompileFeatures.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeDetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeDetermineCompilerABI.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeDetermineCompilerId.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeDetermineSystem.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeFindBinUtils.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeGenericSystem.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeInitializeConfigs.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeLanguageInformation.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeParseImplicitIncludeInfo.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeParseImplicitLinkInfo.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeParseLibraryArchitecture.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeSystem.cmake.in /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeSystemSpecificInformation.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeSystemSpecificInitialize.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeTestCCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeTestCompilerCommon.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/ADSP-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/ARMCC-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/ARMClang-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/AppleClang-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/Borland-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/Bruce-C-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/CMakeCommonCompilerMacros.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/Clang-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/Clang-DetermineCompilerInternal.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/Compaq-C-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/Cray-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/Embarcadero-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/Fujitsu-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/FujitsuClang-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/GHS-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/GNU-C-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/GNU-C.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/GNU-FindBinUtils.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/GNU.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/HP-C-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/IAR-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/IBMCPP-C-DetermineVersionInternal.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/Intel-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/IntelLLVM-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/MSVC-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/NVHPC-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/NVIDIA-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/OpenWatcom-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/PGI-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/PathScale-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/ROCMClang-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/SCO-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/SDCC-C-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/SunPro-C-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/TI-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/TinyCC-C-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/VisualAge-C-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/Watcom-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/XL-C-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/XLClang-C-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/zOS-C-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Internal/FeatureTesting.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Platform/Linux-GNU-C.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Platform/Linux-GNU.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Platform/Linux.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.21.1/CMakeCCompiler.cmake CMakeFiles/3.21.1/CMakeSystem.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build ../CMakeLists.txt /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeCInformation.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeCommonLanguageInclude.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeGenericSystem.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeInitializeConfigs.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeLanguageInformation.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeSystemSpecificInformation.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeSystemSpecificInitialize.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/CMakeCommonCompilerMacros.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/GNU-C.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/GNU.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Platform/Linux-GNU-C.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Platform/Linux-GNU.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Platform/Linux.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.21.1/CMakeCCompiler.cmake CMakeFiles/3.21.1/CMakeSystem.cmake: phony
+build ../CMakeLists.txt /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeCCompiler.cmake.in /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeCCompilerABI.c /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeCInformation.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeCommonLanguageInclude.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeCompilerIdDetection.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeDetermineCCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeDetermineCompileFeatures.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeDetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeDetermineCompilerABI.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeDetermineCompilerId.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeDetermineSystem.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeFindBinUtils.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeGenericSystem.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeInitializeConfigs.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeLanguageInformation.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeParseImplicitIncludeInfo.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeParseImplicitLinkInfo.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeParseLibraryArchitecture.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeSystem.cmake.in /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeSystemSpecificInformation.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeSystemSpecificInitialize.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeTestCCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/CMakeTestCompilerCommon.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/ADSP-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/ARMCC-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/ARMClang-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/AppleClang-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/Borland-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/Bruce-C-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/CMakeCommonCompilerMacros.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/Clang-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/Clang-DetermineCompilerInternal.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/Compaq-C-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/Cray-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/Embarcadero-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/Fujitsu-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/FujitsuClang-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/GHS-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/GNU-C-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/GNU-C.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/GNU-FindBinUtils.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/GNU.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/HP-C-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/IAR-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/IBMCPP-C-DetermineVersionInternal.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/Intel-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/IntelLLVM-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/MSVC-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/NVHPC-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/NVIDIA-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/OpenWatcom-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/PGI-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/PathScale-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/ROCMClang-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/SCO-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/SDCC-C-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/SunPro-C-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/TI-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/TinyCC-C-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/VisualAge-C-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/Watcom-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/XL-C-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/XLClang-C-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Compiler/zOS-C-DetermineCompiler.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Internal/FeatureTesting.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Platform/Linux-GNU-C.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Platform/Linux-GNU.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Platform/Linux.cmake /app/extra/clion/bin/cmake/linux/share/cmake-3.21/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.21.1/CMakeCCompiler.cmake CMakeFiles/3.21.1/CMakeSystem.cmake: phony
 
 
 #############################################
