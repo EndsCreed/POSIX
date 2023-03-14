@@ -1,32 +1,18 @@
-// Lab 1 pt 2
-// Created by Jonathan Mitchell on 1/21/22.
-// 20160512
-
 #include <stdio.h>
-#include <ctype.h>
+#include <stdlib.h>
 
-//This is a reusable function I will continue to use.
-void cleanBuffer() { //So this is my solution to scanf leaving invalid inputs in the input buffer.
-    int n;
-    while((n = getchar()) != EOF && n != '\n' ); //Keeps clearing the next char from the buffer as long as there isn't a newline character and isn't the end of the file.
-}
+int main() {
+    char buff[20]; int n; char c; float f; // Declaring all variables
+    printf("Enter integer: ");
+    fgets(buff, sizeof(buff), stdin);
+    n = atoi(buff); // Converting buffer to an integer
+    printf("Enter float: ");
+    fgets(buff, sizeof(buff), stdin);
+    f = atof(buff); // Converting buffer to a float
+    printf("Enter character: ");
+    fgets(buff, sizeof(buff), stdin);
+    c = buff[0]; // Getting first index of buffer for the character entered
 
-int main(int argc, char **argv) {
-    char c;
-    int n;
-    float f;
-
-    printf("Enter a character: "); //Getting a char from input.
-    scanf("%c", &c);
-    cleanBuffer();
-    printf("Enter a number: "); //Getting a integer from input.
-    scanf("%i", &n);
-    cleanBuffer();
-    printf("Enter a real number: "); //Getting a float from input.
-    scanf("%f", &f);
-    cleanBuffer();
-
-    printf("Chracter: %c\nNumber: %i\nDecimal: %.2f\n", c, n, f);
-
-    return 0;
+    printf("%c is a character\n %i is an integer\n %f is a real number", c, n, f);
+  return 0;
 }

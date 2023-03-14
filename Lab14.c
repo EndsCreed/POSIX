@@ -1,24 +1,50 @@
-// Lab 1 pt 4
-// Created by Jonathan Mitchell on 1/22/22
-// 20160512
-
 #include <stdio.h>
+#include <stdlib.h>
 
-int main(int argc, char **argv) {
-    int a = 6;
-    int b = 19;
-
-    int sum = a + b;
-    int diff = a - b;
-    int prod = a * b;
-    float quot = (float) a / (float) b; //Casting to a float to take care of the decimals.
-    int remain = a % b;
-
-    printf("Sum: %i + %i = %i\n", a, b, sum);
-    printf("Difference: %i - %i = %i\n", a, b, diff);
-    printf("Product: %i x %i = %i\n", a, b, prod);
-    printf("Quotient: %i / %i = %.2f\n", a, b, quot);
-    printf("Remainder: %i %% %i = %i\n", a, b, remain);
+int main() {
+    int sum(const int*, const int*), diff(const int*, const int*), mult(const int*, const int*), remain(const int*, const int*);
+    double divide(const int*, const int*);
+    char buff[80]; int a, b;
+    printf("Enter first integer: ");
+    fgets(buff, sizeof(buff), stdin);
+    a = atoi(buff);
+    printf("Enter second integer: ");
+    fgets(buff, sizeof(buff),stdin);
+    b = atoi(buff);
+    printf(
+            "Sum: %i\n"
+            "Difference: %i\n"
+            "Product: %i\n"
+            "Quotient: %f\n"
+            "Remainder: %i\n",
+            sum(&a, &b), diff(&a, &b), mult(&a, &b), divide(&a, &b), remain(&a, &b));
 
     return 0;
+}
+
+int sum(const int *a, const int *b) {
+    return *a + *b;
+}
+
+int diff(const int *a, const int *b) {
+    return *a - *b;
+}
+
+int mult(const int *a, const int *b) {
+    return *a * *b;
+}
+
+double divide(const int *a, const int *b) {
+    if (*b == 0) {
+        printf("Division by 0 found. Quotient and Remainder will be -1\n");
+        return -1;
+    }
+    return (double)*a / (double)*b;
+}
+
+int remain(const int *a, const int *b) {
+    if (*b == 0) {
+        return -1;
+    }
+    return *a % *b;
 }
