@@ -9,7 +9,7 @@
  */
 
 typedef struct {
-    int RUNNING;
+    short RUNNING;
     int PID;
     int ARRIVAL_TIME;
     int REMAINING_TIME;
@@ -100,13 +100,48 @@ int parseSpaceSeperated(char *in, int *nums) {
     // ^ Just in-case size is 0
 }
 
-int getNextProcess() {
+int getNextProcess(Process *pList, int *TOTAL, Process *lList, int *lCount, Process *mList, int *mCount, Process *hList, int *hCount) {
+    int next = 0, index;
+    for (int i = 0; i < *TOTAL; i++) {
+        index = 0;
+        while (index < hCount) {
+            next = (hList[index].ARRIVAL_TIME < pList[next].ARRIVAL_TIME ||
+                    (hList[index].PRIORITY > pList[next].PRIORITY &&
+                     hList[index].ARRIVAL_TIME <= pList[next].ARRIVAL_TIME)) ? i : next;
+            index++;
+        }
+    }
+    return next;
+}
 
+void sortProcesses(Process *pList, const int *TOTAL, int *foundList, int *found) {
+    int next = 0;
+    while (*TOTAL > *found) {
+    // ^ While we haven't found all processes and ordered them
+        for (int i = 0; i < *TOTAL; i++) {
+            // ^ While the current iteration is under the total count of processes and we haven't found every process
+            if (pList[i].ARRIVAL_TIME < pList[next].ARRIVAL_TIME) {
+                // ^ Check if the current processes arrival time is less than the last found "best".
+                for (int z = 0; z < *found; z++) {
+                    // ^ If it is considered better, loop through the current list of found processes
+                    next = (pList[i].PID == pList[found[z]].PID) ? next : i;
+                    // ^ On each found process, check if the PID of a prev found process matches the current new "best" process
+                    // ^ If it does match, next the next best stays the same, otherwise, set the next best to the current process
+                }
+            }
+        }
+        foundList[*found] = next;
+        // ^ After we reach the end of the list of processes, add the found next best to the found list at the index of the total
+        // number of found processes. Since array index's start at 0 but we count from 1, this should add the process to the
+        // index before the total found count. Avoiding the off-by-one error.
+        *found++;
+        // ^ Increment the found count
+    }
 }
 
 int main() {
     char buff[80];
-    int buffatoi, TOTAL_PROCESSES, QUANTUM = 4;
+    int buffatoi, TOTAL_PROCESSES;
 
     // GETTING NUMBER OF PROCESSES
     printf("Enter the number of process (Max 20): ");
@@ -153,17 +188,29 @@ int main() {
 
     // Sorting Processes into their Priority Queues by Arrival Time
     Process lowQueue[lowPri], medQueue[medPri], hiQueue[hiPri];
-    int added[TOTAL_PROCESSES], nextProcess = 0;
-    count = 0;
-    while (count < TOTAL_PROCESSES) {
-        for (int i = 0; i < TOTAL_PROCESSES; i++) {
-            for (int z = 0; z < count; z++)
-                if (added[z] == i)
-                    continue;
-            if (processList[i].ARRIVAL_TIME < processList[nextProcess].ARRIVAL_TIME)
-                nextProcess = i;
+    int foundList[TOTAL_PROCESSES], found;
+    lowPri = 0; medPri = 0; hiPri = 0;
+    sortProcesses(&processList, &TOTAL_PROCESSES, &foundList, &found);
+    for (int i = 0; i < TOTAL_PROCESSES; i++) {
+        switch (processList[foundList[i]].PRIORITY) {
+            case 1:
+                lowQueue[lowPri] = processList[foundList[i]];
+                lowPri++;
+                break;
+            case 2:
+                medQueue[medPri] = processList[foundList[i]];
+                medPri++;
+                break;
+            case 3:
+                hiQueue[hiPri] = processList[foundList[i]];
+                hiPri++;
+                break;
         }
-        added[count] = nextProcess;
-        count++;
+        // ^ Depending on the priority of the next process in the sorted foundList
+        // processes will be placed in their respective queues.
     }
+
+    // MAIN EXECUTION TICK
+    int currentQuantum= 0, QUANTUM = 4, currentPri = 3, ;
+    while ()
 }
