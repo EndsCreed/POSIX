@@ -120,7 +120,7 @@ Process *findByPID(int *PID, Process *pList, int *TOTAL) {
     return createDummyProcess();
 }
 
-Process *getNextProcess(Process *pList, int *TOTAL, Process *lList, int *lCount, Process *mList, int *mCount, Process *hList, int *hCount) {
+Process *getNextProcess(Process *pList, int *TOTAL, Process *lList, int *lCount, Process *mList, int *mCount, Process *hList, int *hCount, int *time) {
     Process *next, *p;
     int index = 0;
     while (index < *TOTAL) {
@@ -135,45 +135,45 @@ Process *getNextProcess(Process *pList, int *TOTAL, Process *lList, int *lCount,
         return createDummyProcess();
     }
     // ^ If there are no processes left,
-        while (index < *hCount) {
-            if (hList[index].RUNNING != 0) {
-                index++;
-                continue;
-            }
-            p = findByPID(&lList[index].PID, &pList, TOTAL);
-            if (hList[index].ARRIVAL_TIME < p->ARRIVAL_TIME)
-                next = p;
+    while (index < *hCount) {
+        if (hList[index].RUNNING == -1) {
             index++;
+            continue;
         }
-        // ^ Check high priority queue for the lowest arrival time that isn't running
-        index = 0;
-        while (index < *mCount) {
-            if (mList[index].RUNNING != 0) {
-                index++;
-                continue;
-            }
-            p = findByPID(&mList[index].PID, &pList, TOTAL);
-            if (mList[index].ARRIVAL_TIME < p->ARRIVAL_TIME)
-                next = p;
+        p = findByPID(&hList[index].PID, &pList, TOTAL);
+        if (p-> ARRIVAL_TIME < next->ARRIVAL_TIME)
+            next = p;
+        break;
+    }
+    // ^ Check high priority queue for the lowest arrival time that isn't running
+    index = 0;
+    while (index < *mCount) {
+        if (mList[index].RUNNING == -1) {
             index++;
+            continue;
         }
-        //
-        index = 0;
-        while (index < *lCount) {
-            if (lList[index].RUNNING != 0) {
-                index++;
-                continue;
-            }
-            p = findByPID(&lList[index].PID, &pList, TOTAL);
-            if (lList[index].ARRIVAL_TIME < p->ARRIVAL_TIME)
-                next = p;
+        p = findByPID(&mList[index].PID, &pList, TOTAL);
+        if (mList[index].ARRIVAL_TIME < p->ARRIVAL_TIME)
+            next = p;
+        break;
+    }
+    //
+    index = 0;
+    while (index < *lCount) {
+        if (lList[index].RUNNING == -1) {
             index++;
+            continue;
         }
-        // ^ Scan through each list starting with high priority and only replace the next program
-        // with a program who arrives first. Going from highest to lowest priority. That way, only programs with a
-        // lesser arrival time will be able to run instead of high priority programs. This also gives
-        // priority to programs with the same arrival time but higher priority by only replacing them
-        // if the arrival time is LOWER.
+        p = findByPID(&lList[index].PID, &pList, TOTAL);
+        if (lList[index].ARRIVAL_TIME < p->ARRIVAL_TIME)
+            next = p;
+        break;
+    }
+    // ^ Scan through each list starting with high priority and only replace the next program
+    // with a program who arrives first. Going from highest to lowest priority. That way, only programs with a
+    // lesser arrival time will be able to run instead of high priority programs. This also gives
+    // priority to programs with the same arrival time but higher priority by only replacing them
+    // if the arrival time is LOWER.
 
     return next;
     // ^ Return the address of the process who isn't running but has the lowest arrival time and then highest
@@ -281,7 +281,7 @@ int main() {
     }
 
     // MAIN EXECUTION TICK
-    int currentQuantum= 0, QUANTUM = 4, currentPri = 3, time = 0, nextProcess = -1, currentProcess = -1;
+    int currentQuantum= 0, QUANTUM = 4, currentPri = 3, time = 0;
     count = 0; // Will be used to count the completed processes
     found = 0; // Will be used to track the number of processes that have been set to running
 
