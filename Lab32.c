@@ -24,6 +24,17 @@ Process initProcess(int PID, int AT, int RT, int PRI) { // PID, Arrival Time, Re
     p.ARRIVAL_TIME = AT;
     p.REMAINING_TIME = RT;
     p.PRIORITY = PRI;
+    return p;
+}
+
+Process *createDummyProcess () {
+    Process p;
+    p.RUNNING = -1;
+    p.PID = -1;
+    p.ARRIVAL_TIME = -1;
+    p.REMAINING_TIME = -1;
+    p.PRIORITY = -1;
+    return &p;
 }
 
 int isDigit(char *in) { // Verify the input is a digit.
@@ -100,22 +111,77 @@ int parseSpaceSeperated(char *in, int *nums) {
     // ^ Just in-case size is 0
 }
 
-int getNextProcess(Process *pList, int *TOTAL, Process *lList, int *lCount, Process *mList, int *mCount, Process *hList, int *hCount) {
-    int next = 0, index;
+Process *findByPID(int *PID, Process *pList, int *TOTAL) {
+    Process *p;
     for (int i = 0; i < *TOTAL; i++) {
-        index = 0;
-        while (index < hCount) {
-            next = (hList[index].ARRIVAL_TIME < pList[next].ARRIVAL_TIME ||
-                    (hList[index].PRIORITY > pList[next].PRIORITY &&
-                     hList[index].ARRIVAL_TIME <= pList[next].ARRIVAL_TIME)) ? i : next;
+        if (pList[i].PID == *PID)
+            return &pList[i];
+    }
+    return createDummyProcess();
+}
+
+Process *getNextProcess(Process *pList, int *TOTAL, Process *lList, int *lCount, Process *mList, int *mCount, Process *hList, int *hCount) {
+    Process *next, *p;
+    int index = 0;
+    while (index < *TOTAL) {
+        if (pList[index].RUNNING == 0) {
+            next = &pList[index];
+            index = -1;
+            break;
+        }
+        index++;
+    }
+    if (index != -1) {
+        return createDummyProcess();
+    }
+    // ^ If there are no processes left,
+        while (index < *hCount) {
+            if (hList[index].RUNNING != 0) {
+                index++;
+                continue;
+            }
+            p = findByPID(&lList[index].PID, &pList, TOTAL);
+            if (hList[index].ARRIVAL_TIME < p->ARRIVAL_TIME)
+                next = p;
             index++;
         }
-    }
+        // ^ Check high priority queue for the lowest arrival time that isn't running
+        index = 0;
+        while (index < *mCount) {
+            if (mList[index].RUNNING != 0) {
+                index++;
+                continue;
+            }
+            p = findByPID(&mList[index].PID, &pList, TOTAL);
+            if (mList[index].ARRIVAL_TIME < p->ARRIVAL_TIME)
+                next = p;
+            index++;
+        }
+        //
+        index = 0;
+        while (index < *lCount) {
+            if (lList[index].RUNNING != 0) {
+                index++;
+                continue;
+            }
+            p = findByPID(&lList[index].PID, &pList, TOTAL);
+            if (lList[index].ARRIVAL_TIME < p->ARRIVAL_TIME)
+                next = p;
+            index++;
+        }
+        // ^ Scan through each list starting with high priority and only replace the next program
+        // with a program who arrives first. Going from highest to lowest priority. That way, only programs with a
+        // lesser arrival time will be able to run instead of high priority programs. This also gives
+        // priority to programs with the same arrival time but higher priority by only replacing them
+        // if the arrival time is LOWER.
+
     return next;
+    // ^ Return the address of the process who isn't running but has the lowest arrival time and then highest
+    // priority.
 }
 
 void sortProcesses(Process *pList, const int *TOTAL, int *foundList, int *found) {
-    int next = 0;
+    int next = 0, present = 0;
     while (*TOTAL > *found) {
     // ^ While we haven't found all processes and ordered them
         for (int i = 0; i < *TOTAL; i++) {
@@ -124,10 +190,12 @@ void sortProcesses(Process *pList, const int *TOTAL, int *foundList, int *found)
                 // ^ Check if the current processes arrival time is less than the last found "best".
                 for (int z = 0; z < *found; z++) {
                     // ^ If it is considered better, loop through the current list of found processes
-                    next = (pList[i].PID == pList[found[z]].PID) ? next : i;
+                    present = (pList[i].PID == pList[found[z]].PID) ? 1 : present;
                     // ^ On each found process, check if the PID of a prev found process matches the current new "best" process
-                    // ^ If it does match, next the next best stays the same, otherwise, set the next best to the current process
+                    // ^ If it does match, set "present" to 1, otherwise, keep it at what it was set to before. (0 if not found yet or 1 if it has been found)
                 }
+                next = (present) ? next : i;
+                // ^ If the process was found in the found list,
             }
         }
         foundList[*found] = next;
@@ -161,6 +229,7 @@ int main() {
     // SETTING EACH PROCESSES PROPERTIES
     Process processList[TOTAL_PROCESSES];
     int inNums[3], count, lowPri = 0, medPri = 0, hiPri = 0;
+
     for (int i = 0; i < TOTAL_PROCESSES; i++) {
         printf("Enter the Arrival Time, Burst Time, and Priority of seperated by spaces for Process %d", i);
         fgets(buff, sizeof(buff), stdin);
@@ -189,7 +258,8 @@ int main() {
     // Sorting Processes into their Priority Queues by Arrival Time
     Process lowQueue[lowPri], medQueue[medPri], hiQueue[hiPri];
     int foundList[TOTAL_PROCESSES], found;
-    lowPri = 0; medPri = 0; hiPri = 0;
+    lowPri = 0; medPri = 0; hiPri = 0; // Track the count in each list
+
     sortProcesses(&processList, &TOTAL_PROCESSES, &foundList, &found);
     for (int i = 0; i < TOTAL_PROCESSES; i++) {
         switch (processList[foundList[i]].PRIORITY) {
@@ -211,6 +281,16 @@ int main() {
     }
 
     // MAIN EXECUTION TICK
-    int currentQuantum= 0, QUANTUM = 4, currentPri = 3, ;
-    while ()
+    int currentQuantum= 0, QUANTUM = 4, currentPri = 3, time = 0, nextProcess = -1, currentProcess = -1;
+    count = 0; // Will be used to count the completed processes
+    found = 0; // Will be used to track the number of processes that have been set to running
+
+    while (count < TOTAL_PROCESSES) {
+        if (found < TOTAL_PROCESSES && processList[nextProcess].ARRIVAL_TIME == time) {
+
+        }
+        // ^ Logic for starting a new process
+
+
+    }
 }

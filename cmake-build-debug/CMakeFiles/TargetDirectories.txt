@@ -1,3 +1,4 @@
-/home/faarie/CLionProjects/POSIX/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/faarie/CLionProjects/POSIX/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/faarie/CLionProjects/POSIX/cmake-build-debug/CMakeFiles/POSIX.dir
+C:/Users/Jonjo/CLionProjects/POSIX/cmake-build-debug/CMakeFiles/Lab31.dir
+C:/Users/Jonjo/CLionProjects/POSIX/cmake-build-debug/CMakeFiles/Lab32.dir
+C:/Users/Jonjo/CLionProjects/POSIX/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Jonjo/CLionProjects/POSIX/cmake-build-debug/CMakeFiles/rebuild_cache.dir
