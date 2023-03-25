@@ -140,6 +140,7 @@ Process *getNextProcess(Process *pList, int *TOTAL, Process *lList, int *lCount,
             index++;
             continue;
         }
+
         p = findByPID(&hList[index].PID, &pList, TOTAL);
         if (p-> ARRIVAL_TIME < next->ARRIVAL_TIME)
             next = p;
@@ -281,16 +282,39 @@ int main() {
     }
 
     // MAIN EXECUTION TICK
-    int currentQuantum= 0, QUANTUM = 4, currentPri = 3, time = 0;
-    count = 0; // Will be used to count the completed processes
+    int currentQuantum= 0, QUANTUM = 4, currentPri = 3, time = 0,
+    lComp = 0, mComp = 0, hComp = 0; // Number of completed processes in each list
     found = 0; // Will be used to track the number of processes that have been set to running
+    Process *currentProcess = getNextProcess(&processList, &TOTAL_PROCESSES, &lowQueue, &lowPri, &medQueue, &medPri, &hiQueue, &hiPri, &time);
+    time = currentProcess->ARRIVAL_TIME; // Skip to first process execution
+    currentProcess->RUNNING = 1; // Current Process is now running
+    found++; // Increment the number of found processes
 
-    while (count < TOTAL_PROCESSES) {
-        if (found < TOTAL_PROCESSES && processList[nextProcess].ARRIVAL_TIME == time) {
+    Process *nextProcess = getNextProcess(&processList, &TOTAL_PROCESSES, &lowQueue, &lowPri, &medQueue, &medPri, &hiQueue, &hiPri, &time);
 
+    while ((lComp + mComp + hComp) < TOTAL_PROCESSES) {
+        if (nextProcess->ARRIVAL_TIME <= time && found < TOTAL_PROCESSES) {
+            nextProcess->RUNNING = 1;
+            currentProcess - nextProcess;
+            nextProcess = getNextProcess(&processList, &TOTAL_PROCESSES, &lowQueue, &lowPri, &medQueue, &medPri, &hiQueue, &hiPri, &time);
         }
-        // ^ Logic for starting a new process
-
-
+        // ^ Logic for finding the next process. If the amount of found processes is equal to the total, we don't
+        // need to search for a next process anymore.
+        while (currentProcess->REMAINING_TIME > 0) {
+            if (currentQuantum == QUANTUM && nextProcess->PRIORITY > currentProcess->PRIORITY)
+                break;
+            currentProcess->REMAINING_TIME--;
+            if (currentProcess->REMAINING_TIME == 0) {
+                switch (currentProcess->PRIORITY) {
+                    case 3:
+                }
+                // ^ Increment the completed amount of the appropriate queue
+                break;
+            }
+            // ^ If the remaining time is 0, break out of the loop so we rely on the out of loop time increment.
+            time++; currentQuantum++;
+        }
+        time++; currentQuantum++;
+        // ^ Out of loop increment serves to increment the time and quantum if there is no elgible current process.
     }
 }
