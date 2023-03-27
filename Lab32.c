@@ -6,6 +6,16 @@
  * Explanation of logic:
  *
  * This is a bog standard priority queue which does not round robin.
+ * Processes are entered one by one in the beginning and then sorted by their arrival time.
+ * Once they are sorted by arrival time, they are added in this sorted order into their priority queues.
+ * From this point on, determining if we change process will be up to whether there is a process with a higher
+ * priority that can run. We look at the first non-completed process of every queue and check if their arrival
+ * time is less than the current total program running time. If it is, that becomes the next process, if not, we move
+ * on to a lower priority queue and do the same check. If none of the 3 processes can run, we return a dummy
+ * process with a PID of -1. If this process is returned, we attempt to keep running the current process. If the
+ * current process is completed, we will keep running an empty loop until a new process arrives. We could find what the
+ * next future process in this instance is. If there are no processes left to find, we will return a dummy process with
+ * PID of -2 to show this and then keep looping through the last process until we are done.
  */
 
 typedef struct {
@@ -121,64 +131,48 @@ Process *findByPID(int *PID, Process *pList, int *TOTAL) {
 }
 
 Process *getNextProcess(Process *pList, int *TOTAL, Process *lList, int *lCount, Process *mList, int *mCount, Process *hList, int *hCount, int *time) {
-    Process *next, *p;
     int index = 0;
-    while (index < *TOTAL) {
-        if (pList[index].RUNNING == 0) {
-            next = &pList[index];
-            index = -1;
-            break;
-        }
-        index++;
-    }
-    if (index != -1) {
-        return createDummyProcess();
-    }
-    // ^ If there are no processes left,
+
     while (index < *hCount) {
         if (hList[index].RUNNING == -1) {
             index++;
             continue;
         }
 
-        p = findByPID(&hList[index].PID, &pList, TOTAL);
-        if (p-> ARRIVAL_TIME < next->ARRIVAL_TIME)
-            next = p;
+        if (hList[index].ARRIVAL_TIME <= *time)
+            return &hList[index];
         break;
     }
-    // ^ Check high priority queue for the lowest arrival time that isn't running
+    // ^ Return first non-completed process in hiQueue with an arrival time less than current time.
+    // We don't need to check the lower priority lists because they are lower priority...
     index = 0;
     while (index < *mCount) {
         if (mList[index].RUNNING == -1) {
             index++;
             continue;
         }
-        p = findByPID(&mList[index].PID, &pList, TOTAL);
-        if (mList[index].ARRIVAL_TIME < p->ARRIVAL_TIME)
-            next = p;
+        if (mList[index].ARRIVAL_TIME <= *time)
+            return &mList[index];
         break;
     }
-    //
+    // ^ Set next to first non-completed process in medQueue with an arrival time less than current time.
+    // ^ We don't need to consider the result of
     index = 0;
     while (index < *lCount) {
         if (lList[index].RUNNING == -1) {
             index++;
             continue;
         }
-        p = findByPID(&lList[index].PID, &pList, TOTAL);
-        if (lList[index].ARRIVAL_TIME < p->ARRIVAL_TIME)
-            next = p;
+        if (lList[index].ARRIVAL_TIME <= *time)
+            return &lList[index];
         break;
     }
-    // ^ Scan through each list starting with high priority and only replace the next program
-    // with a program who arrives first. Going from highest to lowest priority. That way, only programs with a
-    // lesser arrival time will be able to run instead of high priority programs. This also gives
-    // priority to programs with the same arrival time but higher priority by only replacing them
-    // if the arrival time is LOWER.
-
-    return next;
-    // ^ Return the address of the process who isn't running but has the lowest arrival time and then highest
-    // priority.
+    // ^ Scan through each list starting with High priority and return the first process in the lists that isn't
+    // completed with an arrival time that is under the current system running time.
+    // Since the priority queues are already sorted, I don't need to consider arrival times of each process in relation
+    // to each other. I only need to get the first process in each list that isn't completed since that is guaranteed to
+    // be the lowest (or equally lowest) arrival time from the rest in the same list.
+    // Only three processes will be found in the worst case.
 }
 
 void sortProcesses(Process *pList, const int *TOTAL, int *foundList, int *found) {
@@ -295,18 +289,24 @@ int main() {
     while ((lComp + mComp + hComp) < TOTAL_PROCESSES) {
         if (nextProcess->ARRIVAL_TIME <= time && found < TOTAL_PROCESSES) {
             nextProcess->RUNNING = 1;
-            currentProcess - nextProcess;
+            currentProcess = nextProcess;
             nextProcess = getNextProcess(&processList, &TOTAL_PROCESSES, &lowQueue, &lowPri, &medQueue, &medPri, &hiQueue, &hiPri, &time);
         }
-        // ^ Logic for finding the next process. If the amount of found processes is equal to the total, we don't
-        // need to search for a next process anymore.
+        // ^ Logic for setting the current process and finding the next process.
+        // If the amount of found processes is equal to the total, we don't need to search for a next process anymore.
         while (currentProcess->REMAINING_TIME > 0) {
-            if (currentQuantum == QUANTUM && nextProcess->PRIORITY > currentProcess->PRIORITY)
-                break;
+            if (currentQuantum == QUANTUM) {
+                currentQuantum = 0;
+                if (nextProcess->PRIORITY > currentProcess->PRIORITY)
+                    break;
+            }
             currentProcess->REMAINING_TIME--;
             if (currentProcess->REMAINING_TIME == 0) {
+                currentProcess->RUNNING = -1;
                 switch (currentProcess->PRIORITY) {
-                    case 3:
+                    case 3: hComp++; break;
+                    case 2: mComp++; break;
+                    case 1: lComp++; break;
                 }
                 // ^ Increment the completed amount of the appropriate queue
                 break;
