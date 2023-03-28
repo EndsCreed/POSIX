@@ -27,6 +27,20 @@ typedef struct {
     int COMPLETION_TIME;
 } Process;
 
+typedef struct {
+    Process *PROCESSLIST;
+    Process *HIQUEUE;
+    Process *MEDQUEUE;
+    Process *LOWQUEUE;
+    // vv Save the array sizes and how many process are completed in each array vv
+    int PROCESSSIZE;
+    int HISIZE, HICOMP;
+    int MEDSIZE, MEDCOMP;
+    int LOWSIZE, LOWCOMP;
+} SysState;
+
+SysState sysState;
+
 Process initProcess(int PID, int AT, int RT, int PRI) { // PID, Arrival Time, Remaining Time, Priority
     Process p;
     p.RUNNING = 0;
@@ -121,50 +135,50 @@ int parseSpaceSeperated(char *in, int *nums) {
     // ^ Just in-case size is 0
 }
 
-Process *findByPID(int *PID, Process *pList, int *TOTAL) {
+Process *findByPID(int *PID) {
     Process *p;
-    for (int i = 0; i < *TOTAL; i++) {
-        if (pList[i].PID == *PID)
-            return &pList[i];
+    for (int i = 0; i < sysState.PROCESSSIZE; i++) {
+        if (sysState.PROCESSLIST[i].PID == *PID)
+            return &sysState.PROCESSLIST[i];
     }
     return createDummyProcess();
 }
 
-Process *getNextProcess(Process *pList, int *TOTAL, Process *lList, int *lCount, Process *mList, int *mCount, Process *hList, int *hCount, int *time) {
+Process *getNextProcess(int *time) {
     int index = 0;
 
-    while (index < *hCount) {
-        if (hList[index].RUNNING == -1) {
+    while (index < sysState.HISIZE) {
+        if (sysState.HIQUEUE[index].RUNNING == -1) {
             index++;
             continue;
         }
 
-        if (hList[index].ARRIVAL_TIME <= *time)
-            return &hList[index];
+        if (sysState.HIQUEUE[index].ARRIVAL_TIME <= *time)
+            return findByPID(&sysState.HIQUEUE[index].PID);
         break;
     }
     // ^ Return first non-completed process in hiQueue with an arrival time less than current time.
     // We don't need to check the lower priority lists because they are lower priority...
     index = 0;
-    while (index < *mCount) {
-        if (mList[index].RUNNING == -1) {
+    while (index < sysState.MEDSIZE) {
+        if (sysState.MEDQUEUE[index].RUNNING == -1) {
             index++;
             continue;
         }
-        if (mList[index].ARRIVAL_TIME <= *time)
-            return &mList[index];
+        if (sysState.MEDQUEUE[index].ARRIVAL_TIME <= *time)
+            return findByPID(&sysState.MEDQUEUE[index].PID);
         break;
     }
     // ^ Set next to first non-completed process in medQueue with an arrival time less than current time.
     // ^ We don't need to consider the result of
     index = 0;
-    while (index < *lCount) {
-        if (lList[index].RUNNING == -1) {
+    while (index < sysState.LOWSIZE) {
+        if (sysState.LOWQUEUE[index].RUNNING == -1) {
             index++;
             continue;
         }
-        if (lList[index].ARRIVAL_TIME <= *time)
-            return &lList[index];
+        if (sysState.LOWQUEUE[index].ARRIVAL_TIME <= *time)
+            return findByPID(&sysState.LOWQUEUE[index].PID);
         break;
     }
     // ^ Scan through each list starting with High priority and return the first process in the lists that isn't
@@ -172,7 +186,8 @@ Process *getNextProcess(Process *pList, int *TOTAL, Process *lList, int *lCount,
     // Since the priority queues are already sorted, I don't need to consider arrival times of each process in relation
     // to each other. I only need to get the first process in each list that isn't completed since that is guaranteed to
     // be the lowest (or equally lowest) arrival time from the rest in the same list.
-    // Only three processes will be found in the worst case.
+    // Only three processes will be found in the worst case. From the three that are found to be under the current time,
+    // we take the highest priority and return it as we find it. If none are found, we return a dummy process.
 }
 
 void sortProcesses(Process *pList, const int *TOTAL, int *foundList, int *found) {
@@ -204,7 +219,7 @@ void sortProcesses(Process *pList, const int *TOTAL, int *foundList, int *found)
 
 int main() {
     char buff[80];
-    int buffatoi, TOTAL_PROCESSES;
+    int buffatoi;
 
     // GETTING NUMBER OF PROCESSES
     printf("Enter the number of process (Max 20): ");
@@ -216,16 +231,17 @@ int main() {
 
     buffatoi = atoi(buff);
     buff[0] = '\0'; // Empty Buffer
-    TOTAL_PROCESSES = (buffatoi >= 0 && buffatoi <= 20) ? buffatoi : -1;
-    if (TOTAL_PROCESSES == -1)
+    sysState.PROCESSSIZE = (buffatoi >= 0 && buffatoi <= 20) ? buffatoi : -1;
+    if (sysState.PROCESSSIZE == -1)
         return -2;
     // ^ If the number of processes entered is not from 0 to 20, exit.
 
     // SETTING EACH PROCESSES PROPERTIES
-    Process processList[TOTAL_PROCESSES];
-    int inNums[3], count, lowPri = 0, medPri = 0, hiPri = 0;
+    sysState.PROCESSLIST = malloc(sizeof(Process)*sysState.PROCESSSIZE);
+    int inNums[3], count;
 
-    for (int i = 0; i < TOTAL_PROCESSES; i++) {
+
+    for (int i = 0; i < sysState.PROCESSSIZE; i++) {
         printf("Enter the Arrival Time, Burst Time, and Priority of seperated by spaces for Process %d", i);
         fgets(buff, sizeof(buff), stdin);
         count = parseSpaceSeperated(buff, &inNums);
@@ -234,41 +250,43 @@ int main() {
         if (count != 3)
             return -3;
         // ^ If count is not the right amount of inputs, exit.
-        processList[i] = initProcess(i, inNums[0], inNums[1], inNums[2]);
+        sysState.PROCESSLIST[i] = initProcess(i, inNums[0], inNums[1], inNums[2]);
         // ^ Init the process based on the inputs.
         switch (inNums[2]) {
             case 1:
-                lowPri++;
+                sysState.LOWSIZE++;
                 break;
             case 2:
-                medPri++;
+                sysState.MEDSIZE++;
                 break;
             case 3:
-                hiPri++;
+                sysState.HISIZE++;
                 break;
         }
         buff[0] = '\0';
     }
 
     // Sorting Processes into their Priority Queues by Arrival Time
-    Process lowQueue[lowPri], medQueue[medPri], hiQueue[hiPri];
-    int foundList[TOTAL_PROCESSES], found;
-    lowPri = 0; medPri = 0; hiPri = 0; // Track the count in each list
+    sysState.LOWQUEUE = malloc(sizeof(Process)*sysState.LOWSIZE);
+    sysState.MEDQUEUE = malloc(sizeof(Process)*sysState.MEDSIZE);
+    sysState.HIQUEUE = malloc(sizeof(Process)*sysState.HISIZE);
+    int foundList[sysState.PROCESSSIZE], found;
+    sysState.LOWSIZE = 0; sysState.MEDSIZE = 0; sysState.HISIZE = 0; // Track the count in each list
 
-    sortProcesses(&processList, &TOTAL_PROCESSES, &foundList, &found);
-    for (int i = 0; i < TOTAL_PROCESSES; i++) {
-        switch (processList[foundList[i]].PRIORITY) {
+    sortProcesses(&sysState.PROCESSLIST, &sysState.PROCESSSIZE, &foundList, &found);
+    for (int i = 0; i < sysState.PROCESSSIZE; i++) {
+        switch (sysState.PROCESSLIST[foundList[i]].PRIORITY) {
             case 1:
-                lowQueue[lowPri] = processList[foundList[i]];
-                lowPri++;
+                sysState.LOWQUEUE[sysState.LOWSIZE] = sysState.PROCESSLIST[foundList[i]];
+                sysState.LOWSIZE++;
                 break;
             case 2:
-                medQueue[medPri] = processList[foundList[i]];
-                medPri++;
+                sysState.MEDQUEUE[sysState.MEDSIZE] = sysState.PROCESSLIST[foundList[i]];
+                sysState.MEDSIZE++;
                 break;
             case 3:
-                hiQueue[hiPri] = processList[foundList[i]];
-                hiPri++;
+                sysState.HIQUEUE[sysState.HISIZE] = sysState.PROCESSLIST[foundList[i]];
+                sysState.HISIZE++;
                 break;
         }
         // ^ Depending on the priority of the next process in the sorted foundList
@@ -276,21 +294,23 @@ int main() {
     }
 
     // MAIN EXECUTION TICK
-    int currentQuantum= 0, QUANTUM = 4, currentPri = 3, time = 0,
-    lComp = 0, mComp = 0, hComp = 0; // Number of completed processes in each list
+    int currentQuantum= 0, QUANTUM = 4, currentPri = 3, time = 0;
+    sysState.LOWCOMP = 0; sysState.MEDCOMP = 0; sysState.HICOMP = 0;
+     // Number of completed processes in each list
     found = 0; // Will be used to track the number of processes that have been set to running
-    Process *currentProcess = getNextProcess(&processList, &TOTAL_PROCESSES, &lowQueue, &lowPri, &medQueue, &medPri, &hiQueue, &hiPri, &time);
+    Process *dummy = createDummyProcess();
+    Process *currentProcess = getNextProcess(&time);
     time = currentProcess->ARRIVAL_TIME; // Skip to first process execution
     currentProcess->RUNNING = 1; // Current Process is now running
     found++; // Increment the number of found processes
 
-    Process *nextProcess = getNextProcess(&processList, &TOTAL_PROCESSES, &lowQueue, &lowPri, &medQueue, &medPri, &hiQueue, &hiPri, &time);
+    Process *nextProcess = getNextProcess(&time);
 
-    while ((lComp + mComp + hComp) < TOTAL_PROCESSES) {
-        if (nextProcess->ARRIVAL_TIME <= time && found < TOTAL_PROCESSES) {
+    while ((sysState.LOWCOMP + sysState.MEDCOMP + sysState.HICOMP) < sysState.PROCESSSIZE) {
+        if (nextProcess->ARRIVAL_TIME <= time && found < sysState.PROCESSSIZE) {
             nextProcess->RUNNING = 1;
             currentProcess = nextProcess;
-            nextProcess = getNextProcess(&processList, &TOTAL_PROCESSES, &lowQueue, &lowPri, &medQueue, &medPri, &hiQueue, &hiPri, &time);
+            nextProcess = getNextProcess(&time);
         }
         // ^ Logic for setting the current process and finding the next process.
         // If the amount of found processes is equal to the total, we don't need to search for a next process anymore.
@@ -304,9 +324,9 @@ int main() {
             if (currentProcess->REMAINING_TIME == 0) {
                 currentProcess->RUNNING = -1;
                 switch (currentProcess->PRIORITY) {
-                    case 3: hComp++; break;
-                    case 2: mComp++; break;
-                    case 1: lComp++; break;
+                    case 3: sysState.HICOMP++; break;
+                    case 2: sysState.MEDCOMP++; break;
+                    case 1: sysState.LOWCOMP++; break;
                 }
                 // ^ Increment the completed amount of the appropriate queue
                 break;
