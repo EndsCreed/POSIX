@@ -185,24 +185,39 @@ Process *getNextProcess(int *time) {
     // Only three processes will be found in the worst case. From the three that are found to be under the current time,
     // we take the highest priority and return it as we find it. If none are found, we return a dummy process.
 }
+void swap(Process *a, Process *b) {
+    Process t = *a;
+    *a = *b;
+    *b = t;
+}
+int split(Process array[], int low, int high) {
+    Process pivot = array[high];
+
+    int p = low;
+
+    for (int i = low; i < high; i++) {
+        if (array[i].ARRIVAL_TIME > pivot.ARRIVAL_TIME) {
+            swap(&array[i], &array[p]);
+            p++;
+        }
+    }
+}
+void quickSortProcesses(int *pidArry, int size)
 
 void sortProcesses(int *foundList, int *found) {
-    int next = 0, present = 0;
+    int next, present = 0;
     while (sysState.PROCESSSIZE > *found) {
     // ^ While we haven't found all processes and ordered them
+        next = 0;
         for (int i = 0; i < sysState.PROCESSSIZE; i++) {
             // ^ While the current iteration is under the total count of processes and we haven't found every process
-            if (sysState.PROCESSLIST[i].ARRIVAL_TIME < sysState.PROCESSLIST[next].ARRIVAL_TIME) {
-                // ^ Check if the current processes arrival time is less than the last found "best".
-                for (int z = 0; z < *found; z++) {
-                    // ^ If it is considered better, loop through the current list of found processes
-                    present = (sysState.PROCESSLIST[i].PID == sysState.PROCESSLIST[found[z]].PID) ? 1 : present;
-                    // ^ On each found process, check if the PID of a prev found process matches the current new "best" process
-                    // ^ If it does match, set "present" to 1, otherwise, keep it at what it was set to before. (0 if not found yet or 1 if it has been found)
-                }
-                next = (present) ? next : i;
-                // ^ If the process was found in the found list,
+            for (int z = 0; z < *found; z++) {
+                present = (sysState.PROCESSLIST[i].PID == sysState.PROCESSLIST[found[z]].PID) ? 1 : present;
+                // ^ On each found process, check if the PID of a prev found process matches the current new "best" process
+                // ^ If it does match, set "present" to 1, otherwise, keep it at what it was set to before. (0 if not found yet or 1 if it has been found)
             }
+            next = (!present && (sysState.PROCESSLIST[i].ARRIVAL_TIME < sysState.PROCESSLIST[next].ARRIVAL_TIME)) ? i : next;
+            // ^ If the process was found in the found list,
         }
         foundList[*found] = next;
         // ^ After we reach the end of the list of processes, add the found next best to the found list at the index of the total
