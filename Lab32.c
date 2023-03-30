@@ -22,6 +22,7 @@ typedef struct {
     short RUNNING;
     int PID;
     int ARRIVAL_TIME;
+    int START_TIME;
     int REMAINING_TIME;
     int PRIORITY;
     int COMPLETION_TIME;
@@ -153,9 +154,7 @@ Process *getNextProcess(int *time) {
             continue;
         }
 
-        if (sysState.HIQUEUE[index].ARRIVAL_TIME <= *time)
-            return findByPID(&sysState.HIQUEUE[index].PID);
-        break;
+        return findByPID(&sysState.HIQUEUE[index].PID);
     }
     // ^ Return first non-completed process in hiQueue with an arrival time less than current time.
     // We don't need to check the lower priority lists because they are lower priority...
@@ -165,9 +164,7 @@ Process *getNextProcess(int *time) {
             index++;
             continue;
         }
-        if (sysState.MEDQUEUE[index].ARRIVAL_TIME <= *time)
-            return findByPID(&sysState.MEDQUEUE[index].PID);
-        break;
+        return findByPID(&sysState.MEDQUEUE[index].PID);
     }
     // ^ Set next to first non-completed process in medQueue with an arrival time less than current time.
     // ^ We don't need to consider the result of
@@ -177,12 +174,11 @@ Process *getNextProcess(int *time) {
             index++;
             continue;
         }
-        if (sysState.LOWQUEUE[index].ARRIVAL_TIME <= *time)
-            return findByPID(&sysState.LOWQUEUE[index].PID);
-        break;
+
+        return findByPID(&sysState.LOWQUEUE[index].PID);
     }
     // ^ Scan through each list starting with High priority and return the first process in the lists that isn't
-    // completed with an arrival time that is under the current system running time.
+    // completed with the highest priority.
     // Since the priority queues are already sorted, I don't need to consider arrival times of each process in relation
     // to each other. I only need to get the first process in each list that isn't completed since that is guaranteed to
     // be the lowest (or equally lowest) arrival time from the rest in the same list.
@@ -190,17 +186,17 @@ Process *getNextProcess(int *time) {
     // we take the highest priority and return it as we find it. If none are found, we return a dummy process.
 }
 
-void sortProcesses(Process *pList, const int *TOTAL, int *foundList, int *found) {
+void sortProcesses(int *foundList, int *found) {
     int next = 0, present = 0;
-    while (*TOTAL > *found) {
+    while (sysState.PROCESSSIZE > *found) {
     // ^ While we haven't found all processes and ordered them
-        for (int i = 0; i < *TOTAL; i++) {
+        for (int i = 0; i < sysState.PROCESSSIZE; i++) {
             // ^ While the current iteration is under the total count of processes and we haven't found every process
-            if (pList[i].ARRIVAL_TIME < pList[next].ARRIVAL_TIME) {
+            if (sysState.PROCESSLIST[i].ARRIVAL_TIME < sysState.PROCESSLIST[next].ARRIVAL_TIME) {
                 // ^ Check if the current processes arrival time is less than the last found "best".
                 for (int z = 0; z < *found; z++) {
                     // ^ If it is considered better, loop through the current list of found processes
-                    present = (pList[i].PID == pList[found[z]].PID) ? 1 : present;
+                    present = (sysState.PROCESSLIST[i].PID == sysState.PROCESSLIST[found[z]].PID) ? 1 : present;
                     // ^ On each found process, check if the PID of a prev found process matches the current new "best" process
                     // ^ If it does match, set "present" to 1, otherwise, keep it at what it was set to before. (0 if not found yet or 1 if it has been found)
                 }
@@ -212,7 +208,7 @@ void sortProcesses(Process *pList, const int *TOTAL, int *foundList, int *found)
         // ^ After we reach the end of the list of processes, add the found next best to the found list at the index of the total
         // number of found processes. Since array index's start at 0 but we count from 1, this should add the process to the
         // index before the total found count. Avoiding the off-by-one error.
-        *found++;
+        *found = *found + 1;
         // ^ Increment the found count
     }
 }
@@ -270,10 +266,10 @@ int main() {
     sysState.LOWQUEUE = malloc(sizeof(Process)*sysState.LOWSIZE);
     sysState.MEDQUEUE = malloc(sizeof(Process)*sysState.MEDSIZE);
     sysState.HIQUEUE = malloc(sizeof(Process)*sysState.HISIZE);
-    int foundList[sysState.PROCESSSIZE], found;
+    int foundList[sysState.PROCESSSIZE], found = 0;
     sysState.LOWSIZE = 0; sysState.MEDSIZE = 0; sysState.HISIZE = 0; // Track the count in each list
 
-    sortProcesses(&sysState.PROCESSLIST, &sysState.PROCESSSIZE, &foundList, &found);
+    sortProcesses(&foundList, &found);
     for (int i = 0; i < sysState.PROCESSSIZE; i++) {
         switch (sysState.PROCESSLIST[foundList[i]].PRIORITY) {
             case 1:
@@ -294,11 +290,10 @@ int main() {
     }
 
     // MAIN EXECUTION TICK
-    int currentQuantum= 0, QUANTUM = 4, currentPri = 3, time = 0;
+    int currentQuantum= 0, QUANTUM = 4, time = 0;
     sysState.LOWCOMP = 0; sysState.MEDCOMP = 0; sysState.HICOMP = 0;
      // Number of completed processes in each list
     found = 0; // Will be used to track the number of processes that have been set to running
-    Process *dummy = createDummyProcess();
     Process *currentProcess = getNextProcess(&time);
     time = currentProcess->ARRIVAL_TIME; // Skip to first process execution
     currentProcess->RUNNING = 1; // Current Process is now running
@@ -307,12 +302,16 @@ int main() {
     Process *nextProcess = getNextProcess(&time);
 
     while ((sysState.LOWCOMP + sysState.MEDCOMP + sysState.HICOMP) < sysState.PROCESSSIZE) {
-        if (nextProcess->ARRIVAL_TIME <= time && found < sysState.PROCESSSIZE) {
+        if (nextProcess->ARRIVAL_TIME <= time && found < sysState.PROCESSSIZE
+            && nextProcess->PRIORITY > currentProcess->PRIORITY) {
             nextProcess->RUNNING = 1;
             currentProcess = nextProcess;
+            currentProcess->START_TIME = time;
             nextProcess = getNextProcess(&time);
+            found++;
         }
         // ^ Logic for setting the current process and finding the next process.
+        // If the next processes arrival time is currentTime or less, we haven't found every process
         // If the amount of found processes is equal to the total, we don't need to search for a next process anymore.
         while (currentProcess->REMAINING_TIME > 0) {
             if (currentQuantum == QUANTUM) {
@@ -323,6 +322,7 @@ int main() {
             currentProcess->REMAINING_TIME--;
             if (currentProcess->REMAINING_TIME == 0) {
                 currentProcess->RUNNING = -1;
+                currentProcess->COMPLETION_TIME = time;
                 switch (currentProcess->PRIORITY) {
                     case 3: sysState.HICOMP++; break;
                     case 2: sysState.MEDCOMP++; break;
@@ -336,5 +336,13 @@ int main() {
         }
         time++; currentQuantum++;
         // ^ Out of loop increment serves to increment the time and quantum if there is no elgible current process.
+    }
+
+    for (int i = 0; i < sysState.PROCESSSIZE; i++) {
+        printf("Process %d Start Time: %d | Turnover: %d | Priority: %d",
+                        sysState.PROCESSLIST[i].PID,
+                        sysState.PROCESSLIST[i].START_TIME,
+                        (sysState.PROCESSLIST[i].COMPLETION_TIME - sysState.PROCESSLIST[i].START_TIME),
+                        sysState.PROCESSLIST[i].PRIORITY);
     }
 }
